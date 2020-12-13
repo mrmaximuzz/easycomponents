@@ -16,3 +16,24 @@ class SimpleComponent:
 
     name: str
     deps: List[str]
+
+
+@dataclass
+class Instability:
+    """Identify the component's instability
+
+    Instability is a simple metric which is defined as amount of input
+    dependencies divided by amount of output dependencies. The main instability
+    rule is: no component should depend on other component with higher
+    instablility value.
+
+    deps_in: amount of components that depend on this one
+    deps_out: amount of dependencies of this component
+    """
+
+    deps_in: int
+    deps_out: int
+
+    def __float__(self) -> float:
+        """Return the independency value as a float ratio"""
+        return self.deps_in / self.deps_out
