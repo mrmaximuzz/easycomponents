@@ -9,7 +9,7 @@ from .component import SimpleComponent
 
 @dataclass
 class DepError:
-    """Error in dependency"""
+    """Error in dependency: component depends on inexistent one"""
 
     component: str
     dependency: str
