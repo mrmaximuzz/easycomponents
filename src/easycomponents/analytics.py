@@ -17,6 +17,16 @@ class AnalysisWarning:
 
 
 @dataclass
+class BadComponents(Exception):
+    """Base class for the errors in input components
+
+    As python does not have Either monads, just use EAFP principle here
+    """
+
+    errs: List[AnalysisWarning]
+
+
+@dataclass
 class Duplicate(AnalysisWarning):
     """Error: multiple components with the same name"""
 
