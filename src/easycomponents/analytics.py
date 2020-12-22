@@ -1,6 +1,7 @@
 """Module for various components analysis"""
 
 import itertools
+from abc import abstractmethod, ABC
 from dataclasses import dataclass
 from typing import Collection, List
 
@@ -8,19 +9,34 @@ from .component import SimpleComponent
 
 
 @dataclass
-class Duplicate:
+class AnalysisWarning(ABC):
+    """Base class for the analysis warnings"""
+
+    @abstractmethod
+    def what(self) -> str:
+        """Describes the warning in user-friendly format"""
+
+
+@dataclass
+class Duplicate(AnalysisWarning):
     """Error: multiple components with the same name"""
 
     name: str
     count: int
 
+    def what(self) -> str:
+        return f"'{self.name}' component occurs {self.count} times"
+
 
 @dataclass
-class Dangling:
+class Dangling(AnalysisWarning):
     """Error: component depends on inexistent one"""
 
     name: str
-    dependency: str
+    dep: str
+
+    def what(self) -> str:
+        return f"'{self.name}' depends on '{self.dep}' which does not exist"
 
 
 def find_dups(components: Collection[SimpleComponent]) -> List[Duplicate]:
