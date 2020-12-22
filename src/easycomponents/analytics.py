@@ -28,17 +28,6 @@ class Duplicate(AnalysisWarning):
         return f"'{self.name}' component occurs {self.count} times"
 
 
-@dataclass
-class Dangling(AnalysisWarning):
-    """Error: component depends on inexistent one"""
-
-    name: str
-    dep: str
-
-    def what(self) -> str:
-        return f"'{self.name}' depends on '{self.dep}' which does not exist"
-
-
 def find_dups(components: Collection[SimpleComponent]) -> List[Duplicate]:
     """Check a given collection for components with same names"""
     names = sorted(comp.name for comp in components)
@@ -50,6 +39,17 @@ def find_dups(components: Collection[SimpleComponent]) -> List[Duplicate]:
             errs.append(Duplicate(name, count))
 
     return errs
+
+
+@dataclass
+class Dangling(AnalysisWarning):
+    """Error: component depends on inexistent one"""
+
+    name: str
+    dep: str
+
+    def what(self) -> str:
+        return f"'{self.name}' depends on '{self.dep}' which does not exist"
 
 
 def find_dangling(components: Collection[SimpleComponent]) -> List[Dangling]:
