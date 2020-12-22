@@ -32,7 +32,7 @@ def test_find_dups():
     assert find_dups([comp1, comp2, comp3, comp4]) == errs
 
 
-def test_find_incorrect_deps():
+def test_find_dangling():
     """Test for searching error dependencies"""
 
     comp1 = SimpleComponent("A", [])
