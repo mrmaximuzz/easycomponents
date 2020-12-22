@@ -3,7 +3,7 @@ Software component description
 """
 
 from dataclasses import dataclass
-from typing import List
+from typing import Dict, List
 
 
 @dataclass
@@ -37,3 +37,7 @@ class Instability:
     def __float__(self) -> float:
         """Return the independency value as a float ratio"""
         return self.deps_in / self.deps_out
+
+
+# in component graph all nodes are accessed by its names
+ComponentGraph = Dict[str, SimpleComponent]
