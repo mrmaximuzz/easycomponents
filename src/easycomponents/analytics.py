@@ -4,7 +4,7 @@ import itertools
 from dataclasses import dataclass
 from typing import Collection, List
 
-from .component import SimpleComponent
+from .component import ComponentGraph, SimpleComponent
 
 
 @dataclass
@@ -14,16 +14,6 @@ class AnalysisWarning:
     def what(self) -> str:
         """Describes the warning in user-friendly format"""
         raise NotImplementedError
-
-
-@dataclass
-class BadComponents(Exception):
-    """Base class for the errors in input components
-
-    As python does not have Either monads, just use EAFP principle here
-    """
-
-    errs: List[AnalysisWarning]
 
 
 @dataclass
@@ -72,3 +62,28 @@ def find_dangling(components: Collection[SimpleComponent]) -> List[Dangling]:
                 errs.append(Dangling(comp.name, dep))
 
     return errs
+
+
+@dataclass
+class BadComponents(Exception):
+    """Base class for the errors in input components
+
+    As python does not have Either monads, just use EAFP principle here
+    """
+
+    errs: List[AnalysisWarning]
+
+
+def component_graph(comps: Collection[SimpleComponent]) -> ComponentGraph:
+    """Validates input and create components graph
+
+    Throws an exception if cannot construct valid graph
+    """
+
+    dups = find_dups(comps)
+    dang = find_dangling(comps)
+
+    if dups or dang:
+        raise BadComponents([*dups, *dang])
+
+    return {comp.name: comp for comp in comps}
