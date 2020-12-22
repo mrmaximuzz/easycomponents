@@ -1,7 +1,6 @@
 """Module for various components analysis"""
 
 import itertools
-from abc import abstractmethod, ABC
 from dataclasses import dataclass
 from typing import Collection, List
 
@@ -9,12 +8,12 @@ from .component import SimpleComponent
 
 
 @dataclass
-class AnalysisWarning(ABC):
+class AnalysisWarning:
     """Base class for the analysis warnings"""
 
-    @abstractmethod
     def what(self) -> str:
         """Describes the warning in user-friendly format"""
+        raise NotImplementedError
 
 
 @dataclass
