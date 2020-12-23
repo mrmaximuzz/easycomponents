@@ -29,6 +29,7 @@ class Duplicate(AnalysisWarning):
 
 def find_dups(components: Collection[SimpleComponent]) -> List[Duplicate]:
     """Check a given collection for components with same names"""
+
     names = sorted(comp.name for comp in components)
 
     errs = []
@@ -53,6 +54,7 @@ class Dangling(AnalysisWarning):
 
 def find_dangling(components: Collection[SimpleComponent]) -> List[Dangling]:
     """Find inexistent dependencies for the components collection"""
+
     names = {comp.name for comp in components}
 
     errs = []
