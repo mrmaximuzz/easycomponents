@@ -22,8 +22,8 @@ class SimpleComponent:
 class Instability:
     """Identify the component's instability
 
-    Instability is a simple metric which is defined as amount of input
-    dependencies divided by amount of output dependencies. The main instability
+    Instability is a simple metric which is defined as amount of output
+    dependencies divided by total amount of dependencies. The main instability
     rule is: no component should depend on other component with higher
     instablility value.
 
