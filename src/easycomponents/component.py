@@ -35,8 +35,8 @@ class Instability:
     deps_out: int
 
     def ratio(self) -> float:
-        """Return the independency value as a float ratio"""
-        return self.deps_in / self.deps_out
+        """Return the instability value as a float ratio"""
+        return self.deps_out / (self.deps_out + self.deps_in)
 
 
 # in component graph all nodes are accessed by its names
