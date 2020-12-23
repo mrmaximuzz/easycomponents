@@ -34,7 +34,7 @@ class Instability:
     deps_in: int
     deps_out: int
 
-    def __float__(self) -> float:
+    def ratio(self) -> float:
         """Return the independency value as a float ratio"""
         return self.deps_in / self.deps_out
 
